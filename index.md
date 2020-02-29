@@ -1,7 +1,4 @@
-Hello and welcome to this blog. Edit the `index.md` file to change this content. All pages on the blog, including this one, use [Markdown](https://guides.github.com/features/mastering-markdown/). You can include images:
+## Home
+Bienvenue sur le blog de James Tan! On va discuter beaucoup de chose qui m'interressent, comme la technologie, les langues étrangères et aussi les autre chose 😉.
 
-![Image of fast.ai logo](images/logo.png)
-
-## This is a title
-
-And you can include links, like this [link to fast.ai](https://www.fast.ai). Posts will appear after this file. 
+Did that catch you by surprise? My name is **James** and welcome to my blog! Like all other Malaysians, I pride myself to be a polyglot (one of who knows many languages). In descending order of fluency, I speak English 🇬🇧, Chinese 🇨🇳, Malay 🇲🇾 and French 🇫🇷. In this blog, I intend to share my ideas and experiences related to tech 💻, both inside and outside of work. From time to time, I shall also share my language learning experiences!
