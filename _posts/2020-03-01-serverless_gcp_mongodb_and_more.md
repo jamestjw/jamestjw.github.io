@@ -147,7 +147,7 @@ def get_secret():
 
 The question might arise here that we seem to have been able to retrieve our *secret* a little too easily. Actually, things can get a little more sophisticated than this! Because the administrator that is in charge of [IAM roles](https://cloud.google.com/iam/docs/granting-roles-to-service-accounts) is able to restrict access to this *secret* to only selected service accounts. Hence, although the secret exists in the ecosystem, not every user/service is able to access it.
 
-To be able to connect to our MongoDB database, we will require the help of a Python library called `pymongo`. At the top level of our `main.py` file, we will load the secret and initiate a database connection as such.
+To be able to connect to our MongoDB database, we will require the help of a Python library called `pymongo`. In our `main.py` file, we will load the secret and initiate a database connection as such. We shall call this during the execution of the GCF so that the connection to the database will only be active during the execution time of the GCF.
 
 ```
 from helper import DatabaseAdapter
@@ -184,22 +184,19 @@ The following images should be pretty self-explanatory.
 {% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/google_rss3.png" %}
 {% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/google_rss4.png" %}
 
-Now that we have a link to a RSS Feed that we can rely on to give us what we need, we write a little more code in `helper.py` to ingest data from this feed. This time we make use of another Python library called `feedparser`, what it does shouldn't come as a surprise. For now, the links to the RSS feed are also saved in this file.
+Now that we have a link to a RSS Feed that we can rely on to give us what we need, we write a little more code in `helper.py` to ingest data from this feed. This time we make use of another Python library called `feedparser`, what it does shouldn't come as a surprise. The links to the RSS feeds should be saved in a separate file, i.e. `topics.yml`.
 
 ```
 import re
 import feedparser
 
-RSS_DICT = {
-    'tech': 'https://www.google.com/alerts/feeds/01736057707602744226/6181175218216352531',
-    'politics' : 'https://www.google.com/alerts/feeds/01736057707602744226/11649100745229852174'
-}
+with open("topics.yml",'r') as f: TOPICS = yaml.safe_load(f)
 
 class RSSReader:
     def __init__(self, db, topic = 'tech'):
-        assert topic in RSS_DICT.keys(), f"Your topic must be one of the following: {RSS_DICT.keys()}."
+        assert topic in TOPICS.keys(), f"Your topic must be one of the following: {TOPICS.keys()}."
         self.topic = topic
-        self.url = RSS_DICT[topic]
+        self.url = TOPICS[topic]
         self.id_regex = re.compile('feed\:(.*)$')
         self.url_regex = re.compile(r'url=(.*)&ct=')
         self.db = db
@@ -355,7 +352,39 @@ If we check out our MongoDB console, we should also be able to find the new docu
 
 {% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/mongo_collections_data.png" %}
 
-Now that everything is working, future deployments when pushes are made to the repository should also be **successful**. The GCF will always assume the role of the *Service Account* we assigned it last.
+#### Ensuring the Service Account Is Used For Future Deployments
+Unfortunately, the service account that we created above cannot be attached to the GCF while deploying, there is already an open pull request to Serverless to add such a functionality. But until then, our best hope is to add a step to Cloud Build to make the Function assume the role of the Service Account we created after deployment. We add the following to `cloudbuild.yaml`,
+
+```
+.
+.
+.
+  - name: 'gcr.io/cloud-builders/npm'
+    id: 'Deploy serverless framework'
+    entrypoint: bash
+    args: ['-c', 'npx serverless deploy -v']
+  - name: gcr.io/cloud-builders/gcloud
+    id: 'Assign service account to function'
+    args:
+      - functions
+      - deploy
+      - readRSS
+      - --service-account=${_SERVICE_ACCOUNT}
+substitutions:
+  _KEYRING: sls_deploy_account
+  _KEY: deploy_creds
+  _SERVICE_ACCOUNT: rss-news-service@adventures-in-the-cloud.iam.gserviceaccount.com  
+```
+
+Note that the `service_account` email can be found in the *Service Account* list.
+
+{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_service_account_email.png" %}
+
+And now for all this to work, we also need to add permissions to Cloud Build as follows:
+
+{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_build_additional_permissions.png" %}
+
+Now that everything is working, future deployments when pushes are made to the repository should also be **successful**.
 
 ## Last Step
 Phew, we have finally made it here. There remains one thing that we have not done yet, we need to ensure that our function runs on a schedule! All we have to do is head over to the [Cloud Scheduler], and create a job to publish to the Pub/Sub topic that we set earlier.
