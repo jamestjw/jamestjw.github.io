@@ -230,7 +230,7 @@ class RSSReader:
 This class will be instantiated with a instance of a `DatabaseAdapter` and a topic, it will then parse the Google RSS feed for news articles that haven't already been inserted into the database and insert them in bulk to the relevant collection.
 
 ### Cloud Build
-Our GCF is now ready to be deployed! But as we mentioned before, we do not want to build and deploy it locally. Instead, we will push all of our code in a Git repository and let [Google Cloud Build](https://console.cloud.google.com/cloud-build) do all the hard work for us! Whenever new changes are pushed to the reposity, Cloud Build will automatically redeploy a new version of our GCF with the changes that we have made, how cool is that?
+Our GCF is now ready to be deployed! But as we mentioned before, we do not want to build and deploy it locally. Instead, we will push all of our code in a Git repository and let [Google Cloud Build](https://console.cloud.google.com/cloud-build) do all the hard work for us! Whenever new changes are pushed to the repository, Cloud Build will automatically redeploy a new version of our GCF with the changes that we have made, how cool is that?
 
 First, push your code to a Github repository, consult this [tutorial](https://help.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line) if you are new to this. Next, follow the steps below to connect your repo to Code Build.
 
