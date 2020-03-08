@@ -41,6 +41,10 @@ So my `post-checkout` file looks something like that
 ```
 #!/bin/sh
 currentbranch=`git branch --show-current`
+if [[ !$(git branch -a | egrep 'remotes/origin/${current_branch}$') ]] 
+then
+    exit
+fi
 
 originsha=$(git rev-parse origin/$currentbranch)
 currentsha=$2
@@ -59,6 +63,14 @@ To those new to Git commands on the CLI (and bash scripts), I will briefly descr
 currentbranch=`git branch --show-current`
 ```
 We first find out the name of our current branch and assign it to a variable, this should be pretty self-explanatory.
+
+```
+if [[ !$(git branch -a | egrep 'remotes/origin/${current_branch}$') ]] 
+then
+    exit
+fi
+```
+This part serves to check whether or not this branch exists in the remote, imagine if you just check ran `git checkout -b 'new-branch-name'`, `new-branch-name` would not exist in the remote and we would like to exit at this point.
 
 ```
 originsha=$(git rev-parse origin/$currentbranch)
