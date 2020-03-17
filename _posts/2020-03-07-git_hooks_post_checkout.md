@@ -96,7 +96,7 @@ If this is the situation, we may or may not want to pull (which will result in a
 ```
 if [ $3 -eq 1 ] && [ $originsha != $currentsha ] && [ $isdescendant = 0 ]; then
     echo 'Fetching changes from remote...'
-    git pull
+    git pull origin $currentbranch
 fi
 ```
 Finally, we first check if the current `checkout` operation corresponds to the checking out of a branch (we could have been checking out a file!), and as mentioned before the 3rd parameter is a flag that indicates what sort of checkout we are dealing with. Next, we also check if the local and remote HEADs have different **SHAs**, if they are already the same there is no point in doing anything further. And suppose that they are not equal, we would then check if the remote `HEAD` is a descendant of our local one. Given that the above conditions are fulfilled, we would want this `git pull` to be executed.
