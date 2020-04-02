@@ -2,7 +2,7 @@
 
 It has really been awhile since I have had the time to blog, the last couple of months have been incredibly busy for me, and this alone merits its own blog post, but we shall put that off for another day.
 
-As busy as the last few months have been, I have not neglected my language learning 😙. I have been religiously improing French 🇫🇷!
+As busy as the last few months have been, I have not neglected my language learning 😙. I have been religiously improving my French 🇫🇷!
 
 ## How have I been learning 📚?
 When I first started my new job, there was one thing about it that I absolutely hated, i.e. the commute 😥. Each trip to my work place requires about 50 minutes, a round trip takes up slightly more than an hour and a half each day! And one does not usually do anything productive during a typically uncomfortable train ride, besides we can't really achieve do anything useful in that short period of time, no?
