@@ -1,4 +1,4 @@
 ## Home
 Bienvenue sur le blog de James Tan! On va discuter beaucoup de chose qui m'interressent, comme la technologie, les langues étrangères et aussi les autres choses😉.
 
-Did that catch you by surprise? My name is **James** and welcome to my blog! Like all other Malaysians, I pride myself to be a polyglot (one of who knows many languages). In descending order of fluency, I speak English 🇬🇧, Chinese 🇨🇳, Malay 🇲🇾 and French 🇫🇷. In this blog, I intend to share my ideas and experiences related to tech 💻, both inside and outside of work. From time to time, I shall also share my language learning experiences!
+Did that catch you by surprise? My name is **James** and welcome to my blog! Like all other Malaysians, I pride myself to be a polyglot (one of who knows many languages). In descending order of fluency, I speak English 🇬🇧, Chinese 🇨🇳, French 🇫🇷 and Malay 🇲🇾. In this blog, I intend to 5share my ideas and experiences related to tech 💻, both inside and outside of work. From time to time, I shall also share my language learning experiences!
