@@ -1,3 +1,7 @@
+---
+tags: foreign_languages french
+---
+
 # Mon Expérience Pendant Le Confinement
 
 Coucou! Ça fait très longtemps j'ai pas ecrit d'article ici, alors finalement je suis là pour parler un petit peu de mon expérience pendant les semaines passées. Je pense qu'il y a aucune personne maintenant qui sait pas du nouveau coronavirus (aussi appelé le Covid-19) qui a vraiment inquieté le monde. Plupart des pays du monde ont pris plusieurs mesures pour combattre le virus, et ce qui est plus importante est évidemment le confinement. Ça veut dire que personne peut sortir de chez soi, sauf pour les activités vraiment necéssaire, par exemple aller au supermarché. Bien sûr il y a quand même les exceptions, si tout le monde reste chez soi, qui va travailler dans les supermachés, les hôpitaux et les autres etablissements qui sont absolument necessaires, surtout dans une periodé si difficile comme celle-ci?

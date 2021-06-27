@@ -1,3 +1,7 @@
+---
+tags: foreign_languages
+---
+
 # How Hard Is It to Learn a New Language?
 
 {% include screenshot url="2019-11-24-learning_a_new_language/bonjour.png" %}

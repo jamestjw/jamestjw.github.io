@@ -36,6 +36,10 @@
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="theme-color" content="#ffffff">
 
+  {% if site.tags != "" %}
+    {% include collecttags.html %}
+  {% endif %}
+
   <script>
   function wrap_img(fn) {
     if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {

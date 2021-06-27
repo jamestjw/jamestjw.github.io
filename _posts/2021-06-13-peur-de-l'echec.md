@@ -1,3 +1,7 @@
+---
+tags: foreign_languages french canada
+---
+
 # Peur de l'echec
 
 On a tous peur de quelque chose, et ce dont on a peur change tout le temps. Mais normalement, je suis plutôt quelqu'un qui a peur de rien. Neanmoins je dois avouer que recémment il y a un truc qui me fait peur, et qu'est-ce que c'est chiant d'avoir peur. Cette peur qui fait que j'ai du mal à dormir, oui c'est grave en fait, mais au moins maintenant je comprends ce que c'est la peur.

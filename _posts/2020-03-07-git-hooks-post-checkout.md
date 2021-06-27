@@ -1,3 +1,7 @@
+---
+tags: git soen
+---
+
 # Git Hooks - Automatic Git Pulls
 
 ## A Lazy Person Innovates

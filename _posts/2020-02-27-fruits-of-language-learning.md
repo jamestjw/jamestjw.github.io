@@ -1,3 +1,7 @@
+---
+tags: foreign_languages french
+---
+
 # Fruits of My Language Learning
 
 It has really been awhile since I have had the time to blog, the last couple of months have been incredibly busy for me, and this alone merits its own blog post, but we shall put that off for another day.
