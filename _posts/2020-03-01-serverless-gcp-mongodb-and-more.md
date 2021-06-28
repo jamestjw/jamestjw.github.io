@@ -1,5 +1,5 @@
 ---
-tags: soen serverless gcp
+tags: soen serverless gcp tutorial
 ---
 
 # Serverless Framework (with GCP), MongoDB (Atlas), Cloud Build and more!

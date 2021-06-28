@@ -1,5 +1,5 @@
 ---
-tags: git soen
+tags: git soen tutorial
 ---
 
 # Git Hooks - Automatic Git Pulls

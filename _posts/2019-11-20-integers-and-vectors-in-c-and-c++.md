@@ -1,5 +1,5 @@
 ---
-tags: comp_sci
+tags: comp_sci tutorial
 ---
 
 # Integers and Vectors in C/C++
