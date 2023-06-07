@@ -7,13 +7,16 @@
 # https://learnxinyminutes.com/docs/yaml/
 
 title: James' Adventures!
-description: Welcome to my blog 😁. Feel free to contact me via email/LinkedIn to continue the conversation.
+description: Welcome to my blog 😁. Feel free to contact me via email or on Mastodon to continue the conversation.
 github_username: jamestjw
 
 # Email and twitter are optional:
 email: james_tan97@outlook.com
-twitter_username:
+twitter_username: youknowjamest
 linkedin_username: jamestjw
+mastodon:
+- username: jamestjw
+  instance: types.pl
 
 # Set this to true to get LaTeX math equation support
 use_math:
