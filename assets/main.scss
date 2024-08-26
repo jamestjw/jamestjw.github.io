@@ -2,6 +2,9 @@
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
 
+$content-width: 75%;
+
+
 @import "{{ site.theme }}";
 
 .post img {
@@ -60,3 +63,11 @@
 
 .codecell table { width: auto; }
 
+.svg-icon {
+    width: 23px;
+    height: 16px;
+    display: inline-block;
+    fill: #828282;
+    padding-right: 5px;
+    vertical-align: text-top;
+}
