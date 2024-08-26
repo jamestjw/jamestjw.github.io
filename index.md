@@ -1,8 +1,8 @@
 ## Home
 
-Bienvenue sur le blog de James! Je vais vous parler des choses qui
-m'intéressent, en ce moment il s'agit surtout des langues étrangères, des
-échecs et de la théorie des types.
+Bienvenue sur le blog de James! Je vous parlerai des choses qui m'intéressent,
+en ce moment il s'agit surtout des langues étrangères, des échecs et de la
+théorie des types.
 
 Did that catch you by surprise? My name is **James** and welcome to my blog!
 Like all other Malaysians, I pride myself on being a polyglot (one of who knows
