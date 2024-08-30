@@ -11,4 +11,5 @@ many languages). In descending order of fluency, I speak English 🇬🇧, Chine
 experiences related to tech 💻 and some of my thoughts on what's going on in my
 life. From time to time, I shall also share my language learning experiences! I
 am an aficionado of chess, I intend to share to more of my chess related
-experiences here. Academically, my interests lie in type theory.
+experiences here. Academically, my interests lie in type theory. Naturally, I'm
+a big fan of functional programming.
