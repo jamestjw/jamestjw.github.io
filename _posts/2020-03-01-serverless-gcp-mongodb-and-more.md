@@ -26,7 +26,7 @@ And now, I shall illustrate exactly what I have done, step by step. I will try t
 ### Create GCP Project
 Before we start, we shall first [create a GCP project](https://console.cloud.google.com/projectcreate). You may also use an existing project, the choice is yours.
 
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_create_project.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_create_project.png)
 
 Everything that we do next will be then under the context of this project. One should also take note of the project ID as it will be required later.
 
@@ -34,7 +34,7 @@ Everything that we do next will be then under the context of this project. One s
 For my use case, I expect the need to store lots of data, i.e. it would be necessary to have a database for this. At the same time, I was also interested in implementing a modern database solution, and hence I decided to give MongoDB a go. And since MongoDB Atlas (a cloud MongoDB service) offers a **free tier**, it was the perfect opportunity for me to try it out. The rest of this MongoDB tutorial will illustrate me setting up a free tier solution, a real enterprise-grade solution will require a free extra steps (not all of which are supported by the free tier, of which I shall point out momentarily).
 
 #### Create Cluster
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/mongo_create_free.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/mongo_create_free.png)
 
 After logging into your account, we first start off by opting to create a **free cluster**. Here, there are several things we need to do
 1. Select your cloud service provider (I went with GCP).
@@ -42,7 +42,7 @@ After logging into your account, we first start off by opting to create a **free
 3. Give your cluster a name.
 4. Create your cluster!
 
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/mongo_create_cluster_details.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/mongo_create_cluster_details.png)
 
 #### Whitelist IPs
 While your cluster is being created, we need to configure the network access to our cluster. 
@@ -51,7 +51,7 @@ While your cluster is being created, we need to configure the network access to 
 3. Enter credentials for new user.
 4. Add user.
 
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/mongo_whitelist.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/mongo_whitelist.png)
 One might question me right here, "Wait a second, whitelisting IPs? And you are whitelisting just about every possible IP?" 
 
 This is an extremely valid question. However, there are a couple of caveats that one needs to be aware of. Since we are using Google Cloud Function (GCF) for this, there will not be a single static IP address that connects to our database. One solution to this is by routing traffic of our GCF through a VPC connector, Atlas supports the peering of your VPC with theirs, therefore only allowing traffic from within your VPC to access the database. **BUT!** This feature is unfortunately not supported in the free tier, a more secure solution is definitely possible within a real production environment, but for the purposes of our tutorial whitelisting all IPs will have to do for now.
@@ -63,7 +63,7 @@ Next, we have to create users for our new cluster.
 3. Click on **Allow Access From Anywhere**.
 4. Confirm.
 
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/mongo_create_user.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/mongo_create_user.png)
 
 #### Create Database and Collection
 By now, our cluster should have been successfully created. We now need to create a new database in our cluster.
@@ -74,25 +74,25 @@ By now, our cluster should have been successfully created. We now need to create
 5. Create!
 
 The rest of the tutorial will assume the choices that I have made here.
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/mongo_create_database.png" %}
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/mongo_create_database2.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/mongo_create_database.png)
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/mongo_create_database2.png)
 
 #### Credentials
 Just about everything related to MongoDB has been setup, but there remains one thing, i.e. our **credentials**. Obviously we do not want our credentials to be lying around in plain text withn our code/repository. Hence, we shall store our credentials within [**Google Secret Manager**](https://console.cloud.google.com/marketplace/details/google/secretmanager.googleapis.com). Before we are allowed to use any new service within GCP, we will need to enable it. Since this will be true for every subsequent service that we use, I shall not mention it again. If you are unable to reach this screen, try searching for it with queries such as `secret manager api`, `cloud storage api`, `cloud function api` etc
 
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_enable_sm.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_enable_sm.png)
 
 Now, we can create a secret within **Secret Manager** containing our credentials. The secret value should just be a JSON object containing the relevant information we need to connect to our database.
 
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_sm_create.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_sm_create.png)
 
 To find the cluster name, follow the steps below.
 
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/mongo_cluster_name.png" %}
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/mongo_cluster_name2.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/mongo_cluster_name.png)
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/mongo_cluster_name2.png)
 
 Lastly, we need to take note of the resource ID of our **secret**.
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_sm_resource_id.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_sm_resource_id.png)
 
 ### Serverless Framework x Google Cloud Function
 Now that we have MongoDB successfully configured, we can finally start building our Serverless function! I think now is also a good time to share my [Git repository](https://github.com/jamestjw/news-rss) for this project.
@@ -117,7 +117,7 @@ With this, you should have all the required dependencies for a Serverless projec
 In order for Serverless framework to be able to deploy GCFs on our behalf, we will need to give it the required credentials. As such, I recommend following the [official guide](https://serverless.com/framework/docs/providers/google/guide/credentials/) to set up your credentials. Follow the steps described in the guide, I will also assume that you followed the recommendation of the guide to save your credentials in the `~/.gcloud/keyfile.json` directory.
 
 #### Configuration in serverless.yml
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/sls_serverless_yml.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/sls_serverless_yml.png)
 
 There are several configurations we have to make, I will elaborate further as we go along.
 
@@ -183,10 +183,10 @@ This class needs to be instantiated with a *pymongo Database Connection object* 
 With all that out of the way, we are finally able to get to the most important part of this project, i.e. fetching and saving news articles. With some research, I realised that Google RSS feeds are a reliable way to find news articles related to a particular topic.
 The following images should be pretty self-explanatory.
 
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/google_rss.png" %}
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/google_rss2.png" %}
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/google_rss3.png" %}
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/google_rss4.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/google_rss.png)
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/google_rss2.png)
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/google_rss3.png)
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/google_rss4.png)
 
 Now that we have a link to a RSS Feed that we can rely on to give us what we need, we write a little more code in `helper.py` to ingest data from this feed. This time we make use of another Python library called `feedparser`, what it does shouldn't come as a surprise. The links to the RSS feeds should be saved in a separate file, i.e. `topics.yml`.
 
@@ -238,18 +238,18 @@ Our GCF is now ready to be deployed! But as we mentioned before, we do not want 
 
 First, push your code to a Github repository, consult this [tutorial](https://help.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line) if you are new to this. Next, follow the steps below to connect your repo to Code Build.
 
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_connect_repo.png" %}
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_connect_repo2.png" %}
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_connect_repo3.png" %}
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_connect_repo4.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_connect_repo.png)
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_connect_repo2.png)
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_connect_repo3.png)
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_connect_repo4.png)
 
 #### Deployment Service Account
 Remember the service account that you created earlier (based on the Serverless guide), i.e. the one that produced the credentials that you have stored at `~/.gcloud/keyfile.json`? Since our deployment happens in Cloud Build, we need to provide Cloud Build with the credentials of a service account that is capable of deploying our function. **HOWEVER**, we do not want to push the *json* file with our credentials into a Git repo. What we will do instead is push an encrypted version of it to our repo, and let Cloud Build decrypt it right before deploying our function.
 
 To encrypt our key, we will need the help of [Cloud Key Management Service](https://console.cloud.google.com/security/kms). Follow the steps below to create a keyring for this purpose.
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_kms.png" %}
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_kms2.png" %}
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_kms3.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_kms.png)
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_kms2.png)
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_kms3.png)
 
 **Encrypt keyfile.json**
 
@@ -313,14 +313,14 @@ As you can see, the 4th step decrypts the encrypted key that we have in our repo
 **Enable Cloud Build to Decrypt Key**
 We also need to give Cloud Build permission to decrypt our credentials using KMS, we can do it in the *Settings* section of Cloud Build.
 
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_cloud_build_enable_kms.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_cloud_build_enable_kms.png)
 
 ### We are ~~Done~~ Almost Done!
 We are at the last leg of the race, now that we have made the necessary changes, we should push it to our repo (to trigger a deployment in Cloud Build). After making a push, you can visit the Cloud Build console to track the progress of your build.
 
 And halfway through the build process, **UH-OH** what just happened!??
 
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_cloud_build_failure.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_cloud_build_failure.png)
 
 #### New Service Account
 
@@ -328,16 +328,16 @@ And this shouldn't come as a surprise, remember that our Cloud Function fetches 
 
 The solution is simple, we shall create a new *Service Account* and assign it to our function. The steps required to achieve this are simple:
 
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_cloud_build_new_sa.png" %}
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_cloud_build_new_sa2.png" %}
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_cloud_build_new_sa3.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_cloud_build_new_sa.png)
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_cloud_build_new_sa2.png)
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_cloud_build_new_sa3.png)
 
 All that is left to do is assigning this *Service Account* to our function. Edit the existing function that was unsuccessfully deployed and attach this new account to it like below.
 
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_cloud_build_new_sa4.png" %}
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_cloud_build_new_sa5.png" %}
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_cloud_build_new_sa6.png" %}
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_cloud_build_new_sa7.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_cloud_build_new_sa4.png)
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_cloud_build_new_sa5.png)
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_cloud_build_new_sa6.png)
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_cloud_build_new_sa7.png)
 
 After several moments, the deployment of your function should be successful! 
 
@@ -345,16 +345,16 @@ After several moments, the deployment of your function should be successful!
 
 To be convinced that all is well, we should definitely test out the function.
 
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_gcf_test.png" %}
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_gcf_test2.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_gcf_test.png)
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_gcf_test2.png)
 
 Viewing the logs that were produced by the function, we are convinced that things are working as they should. The same logs can also be viewed in the [*Logging* service](https://console.cloud.google.com/logs).
 
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_logging.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_logging.png)
 
 If we check out our MongoDB console, we should also be able to find the new documents that were written to it.
 
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/mongo_collections_data.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/mongo_collections_data.png)
 
 #### Ensuring the Service Account Is Used For Future Deployments
 Unfortunately, the service account that we created above cannot be attached to the GCF while deploying, there is already an open pull request to Serverless to add such a functionality. But until then, our best hope is to add a step to Cloud Build to make the Function assume the role of the Service Account we created after deployment. We add the following to `cloudbuild.yaml`,
@@ -382,27 +382,27 @@ substitutions:
 
 Note that the `service_account` email can be found in the *Service Account* list.
 
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_service_account_email.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_service_account_email.png)
 
 And now for all this to work, we also need to add permissions to Cloud Build as follows:
 
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_build_additional_permissions.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_build_additional_permissions.png)
 
 Now that everything is working, future deployments when pushes are made to the repository should also be **successful**.
 
 ## Last Step
 Phew, we have finally made it here. There remains one thing that we have not done yet, we need to ensure that our function runs on a schedule! All we have to do is head over to the [Cloud Scheduler], and create a job to publish to the Pub/Sub topic that we set earlier.
 
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_scheduler.png" %}
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_scheduler2.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_scheduler.png)
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_scheduler2.png)
 
 There are only two things here that matter, the `topic` and the `frequency`. The `topic` should be the one that we set in our `serverless.yml` file, i.e. `one-hour-topic`. The frequency is simply just a [cron schedule](https://crontab.guru), and it is scheduled to run once per hour.
 
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_scheduler3.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_scheduler3.png)
 
 To verify that your scheduler job is working, test it out in the console by invoking it manually.
 
-{% include screenshot url="2020-03-01-serverless_gcp_mongodb_and_more/gcp_scheduler4.png" %}
+![](/images/2020-03-01-serverless_gcp_mongodb_and_more/gcp_scheduler4.png)
 
 You can then check the logs of your cloud function to verify that it was indeed invoked.
 

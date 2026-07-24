@@ -51,7 +51,6 @@ learning how to play again. I might get a piano teacher after starting my job,
 just to get a better idea of what my schedule would be like and how much free
 time I would like to consecrate to playing the piano.
 
-{% include screenshot url="2024-08-26-end-of-my-studies-and-whats-next/piano.jpg"
-   caption="My new Yamaha keyboard" %}
+![My new Yamaha keyboard](/images/2024-08-26-end-of-my-studies-and-whats-next/piano.jpg)
 
 Oh and finally, I would like to try to be more active here and blog more.

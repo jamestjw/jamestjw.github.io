@@ -20,7 +20,7 @@ home and I find myself a whole host of things that I want to read and work on.
 And honestly, I would love to devote what little free time I have to this at the
 end of the day. However, I am not as young as I used to be and I unfortunately
 start feeling the fatigue very early in the evening. I see this as the
-opportunity cost of working[^1]. Well, of course, I would need to work in order
+opportunity cost of working [1](#notes). Well, of course, I would need to work in order
 to survive, heck even that is insufficient, I want to be *handsomely*
 compensated. Maybe I am overthinking the entire thing, and my job will soon
 become more interesting.
@@ -32,7 +32,8 @@ future? What exactly would I have to do in order to get there? What would **my**
 dream job look like anyway?? Urgh this is indeed quite a headache :) If anyone
 has any advice, feel free to reach out to me.
 
-[^1]: Perhaps this is why people seek the intellectual refuge of academia. This
-      comes with its own opportunity costs, of course. I opted not to remain in
-      the world of academia for reasons that I shall not elaborate on for now.
+### Notes
 
+1. Perhaps this is why people seek the intellectual refuge of academia. This
+   comes with its own opportunity costs, of course. I opted not to remain in the
+   world of academia for reasons that I shall not elaborate on for now.

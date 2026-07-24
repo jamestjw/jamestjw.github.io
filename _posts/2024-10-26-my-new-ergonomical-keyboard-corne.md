@@ -4,7 +4,7 @@ tags: soen
 
 # My new ergonomical keyboard - Corne
 
-{% include screenshot url="2024-10-26-my-new-ergonomical-keyboard-corne/corne.jpg" %}
+![](/images/2024-10-26-my-new-ergonomical-keyboard-corne/corne.jpg)
 
 I finally did it! I went ahead and got myself an ergonomical keyboard. Now I
 didn't get it based on any discomfort while using my previous keyboard or
@@ -31,7 +31,7 @@ In the future I'd totally be willing to experiment with something different
 such as Colemak DH.
 
 It is no shame for me to admit that I spent the better part of the last week
-practising on [www.keybr.com](https://www.keybr.com). I did not expect a column stagger to be THAT
+practising on [keybr](https://www.keybr.com). I did not expect a column stagger to be THAT
 different from a 'normal' row-staggered keyboard. Though I'm glad that I
 switched, I'm now touch-typing for real by using all the appropriate fingers to
 hit the right keys, this just highlights how traditional keyboards encourage us

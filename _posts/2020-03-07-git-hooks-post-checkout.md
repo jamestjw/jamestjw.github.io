@@ -38,7 +38,7 @@ To make any of them work, you just have to remove the `.sample` extension. And t
 
 In my case, I am going to write my own version of `post-checkout`. Basically, I would like to check after checking out a branch if the `HEAD` of my local version of the branch is the same as the `HEAD` of the remote version of this branch. Suppose that they are different, I would then need to check if the remote `HEAD` is a descendant of my local `HEAD`, if it is then it would make sense to just run `git pull`. That's all I would like to achieve for now, and it can be easily done using a **bash script**.
 
-The `post-checkout` script will receive three arguments when it is run. The ref of the previous `HEAD`, the ref of the new `HEAD` (which may or may not have changed), and a flag indicating whether **the checkout was a branch checkout** (changing branches, flag=1) or a file checkout (retrieving a file from the index, flag=0)[^1]. 
+The `post-checkout` script will receive three arguments when it is run. The ref of the previous `HEAD`, the ref of the new `HEAD` (which may or may not have changed), and a flag indicating whether **the checkout was a branch checkout** (changing branches, flag=1) or a file checkout (retrieving a file from the index, flag=0) [1](#notes). 
 
 So my `post-checkout` file looks something like that
 
@@ -86,7 +86,7 @@ Each commit on Git has a `code` of sorts, which are called **SHA** of commits. W
 isdescendant=$(git merge-base --is-ancestor $currentsha $originsha; echo $?)
 ```
 
-Now that we have the SHA of the remote `HEAD` and the local `HEAD`, we can run a Git command to find out if the remote `HEAD` is a descendant of ours, a positive response will be signified by a **0** (by convention, a zero represents a successful resolution of a command). Why do we check for this? It is possible that the local and remote version of this branch has diverged, i.e. the branches look a little like the below[^2].
+Now that we have the SHA of the remote `HEAD` and the local `HEAD`, we can run a Git command to find out if the remote `HEAD` is a descendant of ours, a positive response will be signified by a **0** (by convention, a zero represents a successful resolution of a command). Why do we check for this? It is possible that the local and remote version of this branch has diverged, i.e. the branches look a little like the below [2](#notes).
 
 ```
 ... o ---- o ---- A ---- B  origin/branch_xxx (upstream work)
@@ -124,5 +124,7 @@ git config --global core.hooksPath ~/.githooks
 That was a pretty simple use case of a Git hook, we can do many other things by leveraging Git hooks, just let your imagination run wild!
 
 
-[^1]: https://git-scm.com/docs/githooks.
-[^2]: http://serebrov.github.io/html/2012-02-13-git-branches-have-diverged.html
+### Notes
+
+1. https://git-scm.com/docs/githooks.
+2. http://serebrov.github.io/html/2012-02-13-git-branches-have-diverged.html
