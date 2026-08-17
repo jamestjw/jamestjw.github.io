@@ -12,17 +12,27 @@ import gleam/string
 import lustre/attribute.{type Attribute}
 import lustre/element.{type Element}
 import lustre/element/html
+import simplifile
 
 const site_url = "https://jamestjw.github.io"
 
 pub fn main() {
-  case blogatto.build(site_config()) {
-    Ok(Nil) -> io.println("Site built successfully!")
-    Error(err) -> io.println(error.describe_error(err))
+  case site_config() {
+    Ok(config) ->
+      case blogatto.build(config) {
+        Ok(Nil) -> io.println("Site built successfully!")
+        Error(err) -> io.println(error.describe_error(err))
+      }
+    Error(message) -> io.println(message)
   }
 }
 
 pub fn site_config() {
+  content_tags()
+  |> result.map(fn(tags) { site_config_with_tags(tags) })
+}
+
+fn site_config_with_tags(tags: List(String)) {
   let posts =
     post.default()
     |> post.path("./content/posts")
@@ -45,7 +55,7 @@ pub fn site_config() {
     |> config.route("/", home_page)
     |> config.route("/about", about_page)
 
-  add_tag_routes(config, tags())
+  add_tag_routes(config, tags)
 }
 
 fn add_tag_routes(config, tags: List(String)) {
@@ -58,12 +68,46 @@ fn add_tag_routes(config, tags: List(String)) {
   }
 }
 
-fn tags() -> List(String) {
-  [
-    "awk", "c", "canada", "chess", "comp_sci", "compiler", "data_processing",
-    "discord", "foreign_languages", "french", "gcp", "git", "productivity",
-    "random", "serverless", "soen", "tutorial", "type_theory",
-  ]
+fn content_tags() -> Result(List(String), String) {
+  use files <- result.try(
+    simplifile.get_files("./content/posts")
+    |> result.map_error(simplifile.describe_error),
+  )
+  files
+  |> list.filter(fn(file) { string.ends_with(file, ".md") })
+  |> list.try_map(fn(file) {
+    simplifile.read(from: file)
+    |> result.map(tags_from_markdown)
+    |> result.map_error(fn(error) {
+      "Could not read " <> file <> ": " <> simplifile.describe_error(error)
+    })
+  })
+  |> result.map(fn(tags) {
+    tags |> list.flatten |> list.unique |> list.sort(string.compare)
+  })
+}
+
+fn tags_from_markdown(markdown: String) -> List(String) {
+  case string.split(markdown, "---") {
+    [_, frontmatter, ..] ->
+      tags_from_frontmatter(string.split(frontmatter, "\n"))
+    _ -> []
+  }
+}
+
+fn tags_from_frontmatter(lines: List(String)) -> List(String) {
+  case lines {
+    [] -> []
+    [line, ..rest] ->
+      case string.split_once(line, ":") {
+        Ok(#("tags", tags)) ->
+          list.append(
+            string.split(string.trim(tags), " "),
+            tags_from_frontmatter(rest),
+          )
+        _ -> tags_from_frontmatter(rest)
+      }
+  }
 }
 
 fn heading(tag: fn(List(Attribute(msg)), List(Element(msg))) -> Element(msg)) {

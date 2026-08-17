@@ -26,7 +26,6 @@ jobs:
           otp-version: "28.0"
           rebar3-version: "3.24.0"
       - uses: gleam-lang/setup-gleam@v1
-          
       - run: gleam run -m site
       - uses: actions/upload-pages-artifact@v3
         with:
