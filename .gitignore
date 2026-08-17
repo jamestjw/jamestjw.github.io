@@ -1,10 +1,5 @@
 *.swp
 ~*
 *~
-node_modules
 dist
 build
-elm-stuff
-.elm-pages
-public/images
-functions
