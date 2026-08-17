@@ -10,11 +10,11 @@ import gleam/option
 import gleam/result
 import gleam/string
 import lustre/attribute.{type Attribute}
-import lustre/element.{type Element}
+import lustre/element.{type Element, unsafe_raw_html}
 import lustre/element/html
+import mork
 import simplifile
-
-const site_url = "https://jamestjw.github.io"
+import site/config as site_config
 
 pub fn main() {
   case site_config() {
@@ -28,11 +28,13 @@ pub fn main() {
 }
 
 pub fn site_config() {
-  content_tags()
-  |> result.map(fn(tags) { site_config_with_tags(tags) })
+  use tags <- result.try(content_tags())
+  use home <- result.try(read_content("./content/index.md"))
+  use about <- result.try(read_content("./content/about.md"))
+  Ok(site_config_with_content(tags, home, about))
 }
 
-fn site_config_with_tags(tags: List(String)) {
+fn site_config_with_content(tags: List(String), home: String, about: String) {
   let posts =
     post.default()
     |> post.path("./content/posts")
@@ -48,12 +50,12 @@ fn site_config_with_tags(tags: List(String)) {
     |> post.template(post_page)
 
   let config =
-    config.new(site_url)
+    config.new(site_config.url)
     |> config.output_dir("./dist")
     |> config.static_dir("./static")
     |> config.post(posts)
-    |> config.route("/", home_page)
-    |> config.route("/about", about_page)
+    |> config.route("/", home_page(home))
+    |> config.route("/about", about_page(about))
 
   add_tag_routes(config, tags)
 }
@@ -84,6 +86,13 @@ fn content_tags() -> Result(List(String), String) {
   })
   |> result.map(fn(tags) {
     tags |> list.flatten |> list.unique |> list.sort(string.compare)
+  })
+}
+
+fn read_content(path: String) -> Result(String, String) {
+  simplifile.read(from: path)
+  |> result.map_error(fn(error) {
+    "Could not read " <> path <> ": " <> simplifile.describe_error(error)
   })
 }
 
@@ -155,45 +164,32 @@ fn post_page(
   ])
 }
 
-fn home_page(posts: List(blog_post.Post(Nil))) -> Element(Nil) {
-  page("James' Adventures!", "Welcome to James' blog.", [
-    html.h2([attribute.id("home")], [html.text("Home")]),
-    html.p([], [
-      html.text(
-        "Bienvenue sur le blog de James! Je vous parlerai des choses qui m'intéressent, en ce moment il s'agit surtout des bases de données, de la latence p99 et du cyclisme.",
-      ),
-    ]),
-    html.p([], [
-      html.text("Did that catch you by surprise? My name is "),
-      html.strong([], [html.text("James")]),
-      html.text(
-        " and welcome to my blog! Like all other Malaysians, I pride myself on being a polyglot (one of who knows many languages). In descending order of fluency, I speak English, Chinese, French and Malay. In this blog, I share my ideas and experiences related to tech and some of my thoughts on what's going on in my life. From time to time, I shall also share my language learning experiences! I am an aficionado of chess, I intend to share to more of my chess related experiences here. Academically, my interests lie in databases and type theory. Naturally, I'm a big fan of functional programming. Oh and when I write in English, I insist on spelling things the British way.",
-      ),
-    ]),
-    html.h2([], [html.text("Posts")]),
-    post_list(posts),
-  ])
+fn home_page(
+  markdown: String,
+) -> fn(List(blog_post.Post(Nil))) -> Element(Nil) {
+  fn(posts) {
+    page(site_config.title, "Welcome to James' blog.", [
+      markdown_html(markdown),
+      html.h2([], [html.text("Posts")]),
+      post_list(posts),
+    ])
+  }
 }
 
-fn about_page(_posts: List(blog_post.Post(Nil))) -> Element(Nil) {
-  page("About", "About James.", [
-    html.h1([attribute.id("about")], [html.text("About")]),
-    html.p([], [
-      html.text(
-        "Hello there and welcome to my blog! My name is James, I am 28 years old this year (2025) and I'm based in Montréal, Québec. I am currently working as a Software Developer. My recent interests include programming languages, databases, foreign languages, cycling and chess. I plan to share my ideas and thoughts on these subjects more frequently throughout the span of the next year in this blog!",
-      ),
-    ]),
-    html.p([], [
-      html.text(
-        "I graduated from l'Université de Montréal in August 2024 where I did a bunch of work on programming languages and type theory. I'm especially a fan of functional programming languages, my favourite one being OCaml at the moment. At the present moment I'm primarily interested in using Rust for high performance stuff.",
-      ),
-    ]),
-    html.p([], [
-      html.text(
-        "Connect and network with me on various platforms below. Feel free to strike up a conversation with me on just about any topic.",
-      ),
-    ]),
-  ])
+fn about_page(
+  markdown: String,
+) -> fn(List(blog_post.Post(Nil))) -> Element(Nil) {
+  fn(_posts) { page("About", "About James.", [markdown_html(markdown)]) }
+}
+
+fn markdown_html(markdown: String) -> Element(Nil) {
+  let options = mork.configure() |> mork.extended(True)
+  unsafe_raw_html(
+    "",
+    "div",
+    [],
+    mork.parse_with_options(options, markdown) |> mork.to_html(),
+  )
 }
 
 fn tag_page(tag: String) -> fn(List(blog_post.Post(Nil))) -> Element(Nil) {
@@ -249,11 +245,11 @@ fn page(
       ]),
       html.title([], title),
       html.link([attribute.rel("stylesheet"), attribute.href("/style.css")]),
-      html.link([attribute.rel("canonical"), attribute.href(site_url)]),
+      html.link([attribute.rel("canonical"), attribute.href(site_config.url)]),
       html.meta([attribute.name("description"), attribute.content(description)]),
       html.meta([
         attribute.attribute("property", "og:image"),
-        attribute.content(site_url <> "/images/logo.png"),
+        attribute.content(site_config.url <> "/images/logo.png"),
       ]),
       html.meta([
         attribute.attribute("property", "og:title"),
@@ -261,7 +257,7 @@ fn page(
       ]),
       html.meta([
         attribute.attribute("property", "og:url"),
-        attribute.content(site_url),
+        attribute.content(site_config.url),
       ]),
       html.meta([
         attribute.attribute("property", "og:description"),
@@ -269,7 +265,7 @@ fn page(
       ]),
       html.meta([
         attribute.attribute("property", "og:site_name"),
-        attribute.content("James' Adventures!"),
+        attribute.content(site_config.title),
       ]),
       html.meta([
         attribute.attribute("property", "og:type"),
@@ -293,7 +289,7 @@ fn header() -> Element(Nil) {
   html.header([attribute.class("site-header")], [
     html.div([attribute.class("wrapper site-nav")], [
       html.a([attribute.class("site-title"), attribute.href("/")], [
-        html.text("James' Adventures!"),
+        html.text(site_config.title),
       ]),
       html.nav([attribute.class("nav-links")], [
         html.a([attribute.href("/")], [html.text("Home")]),
@@ -311,12 +307,11 @@ fn footer() -> Element(Nil) {
           "Welcome to my blog. Feel free to contact me on Mastodon to continue the conversation.",
         ),
       ]),
-      html.ul([attribute.class("social-links")], [
-        social_link("GitHub", "https://github.com/jamestjw"),
-        social_link("LinkedIn", "https://www.linkedin.com/in/jamestjw"),
-        social_link("Mastodon", "https://types.pl/@jamestjw"),
-        social_link("Twitter", "https://www.twitter.com/youknowjamest"),
-      ]),
+      html.ul(
+        [attribute.class("social-links")],
+        site_config.social_links()
+          |> list.map(fn(link) { social_link(link.label, link.url) }),
+      ),
     ]),
   ])
 }
