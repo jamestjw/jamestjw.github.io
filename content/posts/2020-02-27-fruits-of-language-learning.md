@@ -1,8 +1,12 @@
 ---
-tags: foreign_languages french
+title: "Fruits of My Language Learning"
+date: "2020-02-27 00:00:00"
+display_date: "2020-02-27"
+description: "Fruits of My Language Learning"
+slug: "fruits-of-language-learning"
+tags: "foreign_languages french"
 ---
 
-# Fruits of My Language Learning
 
 It has really been awhile since I have had the time to blog, the last couple of months have been incredibly busy for me, and this alone merits its own blog post, but we shall put that off for another day.
 

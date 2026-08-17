@@ -1,8 +1,12 @@
 ---
-tags: soen
+title: "My new ergonomical keyboard - Corne"
+date: "2024-10-26 00:00:00"
+display_date: "2024-10-26"
+description: "My new ergonomical keyboard - Corne"
+slug: "my-new-ergonomical-keyboard-corne"
+tags: "soen"
 ---
 
-# My new ergonomical keyboard - Corne
 
 ![](/images/2024-10-26-my-new-ergonomical-keyboard-corne/corne.jpg)
 

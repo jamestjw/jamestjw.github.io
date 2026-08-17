@@ -4,13 +4,16 @@ Personal blog of James Tan.
 
 ## Running locally
 
+`Gleam` and Erlang/OTP 28 (including `rebar3`) are required.
+
 ```
-npm install
-npm run start
+gleam dev
 ```
 
 ## Building
 
 ```
-npm run build
+gleam run -m site
 ```
+
+The static site is generated in `dist/`.

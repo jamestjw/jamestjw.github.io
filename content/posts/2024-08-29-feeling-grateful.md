@@ -1,8 +1,12 @@
 ---
-tags: random
+title: "Feeling grateful"
+date: "2024-08-29 00:00:00"
+display_date: "2024-08-29"
+description: "Feeling grateful"
+slug: "feeling-grateful"
+tags: "random"
 ---
 
-# Feeling grateful
 
 It took me a while to realize how privileged I truly am. I've always lived a
 relatively comfortable life, but it wasn’t until recently that I fully grasped

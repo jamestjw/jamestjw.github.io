@@ -1,8 +1,12 @@
 ---
-tags: git soen tutorial
+title: "Git Hooks - Automatic Git Pulls"
+date: "2020-03-07 00:00:00"
+display_date: "2020-03-07"
+description: "Git Hooks - Automatic Git Pulls"
+slug: "git-hooks-post-checkout"
+tags: "git soen tutorial"
 ---
 
-# Git Hooks - Automatic Git Pulls
 
 ## A Lazy Person Innovates
 

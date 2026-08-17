@@ -1,8 +1,12 @@
 ---
-tags: soen serverless gcp tutorial
+title: "Serverless Framework (with GCP), MongoDB (Atlas), Cloud Build and more!"
+date: "2020-03-01 00:00:00"
+display_date: "2020-03-01"
+description: "Serverless Framework (with GCP), MongoDB (Atlas), Cloud Build and more!"
+slug: "serverless-gcp-mongodb-and-more"
+tags: "soen serverless gcp tutorial"
 ---
 
-# Serverless Framework (with GCP), MongoDB (Atlas), Cloud Build and more!
 
 Google Cloud Function (also known as Lambda functions in the context of AWS) is arguably one of the easiest to use yet most useful service in the GCP suite. However, ease of use does not necessarily translate into ease of doing it correctly! It is incredibly simple to hack together a solution, but such will such a solution be easy to maintain? Will it be easy to add collaborators to this project? In this article, I will describe my experience of trying to set up a solution for a side project of mine, all while trying to ensure that my solution is as elegant and easy to maintain as possible.
 

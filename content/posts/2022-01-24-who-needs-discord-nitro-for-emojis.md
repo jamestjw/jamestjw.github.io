@@ -1,8 +1,12 @@
 ---
-tags: tutorial discord productivity
+title: "Who needs Discord Nitro for emojis 😂? "
+date: "2022-01-24 00:00:00"
+display_date: "2022-01-24"
+description: "Who needs Discord Nitro for emojis 😂? "
+slug: "who-needs-discord-nitro-for-emojis"
+tags: "tutorial discord productivity"
 ---
 
-# Who needs Discord Nitro for emojis 😂? 
 
 ## Back Story
 Let's be real guys, the only thing useful about having a Discord Nitro subscription is the ability to use emojis anywhere. In June 2021, Epic Games offered a free 3 month subscription to those who have never experienced Discord Nitro before, and well let's just say that it was a life-changing experience for me 🥲. Recently, I thought of cooking up a workaround to make it once again possible to use emojis on Discord without having a subscription.

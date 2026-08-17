@@ -1,8 +1,12 @@
 ---
-tags: chess french type_theory comp_sci
+title: "Année de dingue"
+date: "2023-05-09 00:00:00"
+display_date: "2023-05-09"
+description: "Année de dingue"
+slug: "annee-de-dingue"
+tags: "chess french type_theory comp_sci"
 ---
 
-# Année de dingue
 
 Salut mes amis, ça fait tellement longtemps que j'ai pas écrit de blog, mais je suis enfin de retour! Alors c'est pas pour rien que j'ai pas été actif, j'étais super occupé à cause de mes études. J'ai vécu plein de choses, et je vais tout vous raconter.
 

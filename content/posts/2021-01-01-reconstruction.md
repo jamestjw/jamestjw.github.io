@@ -1,8 +1,12 @@
 ---
-tags: foreign_languages comp_sci french
+title: "Reconstruction"
+date: "2021-01-01 00:00:00"
+display_date: "2021-01-01"
+description: "Reconstruction"
+slug: "reconstruction"
+tags: "foreign_languages comp_sci french"
 ---
 
-# Reconstruction
 
 You might have the topic a little weird, but hear me out. I realised that every so often I'd go through the (tedious but rewarding) process of reinventing/reconstructing myself. The idea of this blog post is to do a quick recap of some of my 'achievements' in the last year and quickly mention what I would like to do next.
 

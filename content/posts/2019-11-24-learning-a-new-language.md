@@ -1,8 +1,12 @@
 ---
-tags: foreign_languages
+title: "How Hard Is It to Learn a New Language?"
+date: "2019-11-24 00:00:00"
+display_date: "2019-11-24"
+description: "How Hard Is It to Learn a New Language?"
+slug: "learning-a-new-language"
+tags: "foreign_languages"
 ---
 
-# How Hard Is It to Learn a New Language?
 
 ![](/images/2019-11-24-learning_a_new_language/bonjour.png)
 

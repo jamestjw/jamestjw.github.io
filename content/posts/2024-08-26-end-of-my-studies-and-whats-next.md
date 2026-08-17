@@ -1,8 +1,12 @@
 ---
-tags: comp_sci soen canada
+title: "End of my studies and what's next"
+date: "2024-08-26 00:00:00"
+display_date: "2024-08-26"
+description: "End of my studies and what's next"
+slug: "end-of-my-studies-and-whats-next"
+tags: "comp_sci soen canada"
 ---
 
-# End of my studies and what's next
 
 
 ## Recap

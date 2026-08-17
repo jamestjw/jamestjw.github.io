@@ -1,8 +1,12 @@
 ---
-tags: awk soen data_processing tutorial
+title: "Short Intro to awk for Quick and Dirty Data Processing"
+date: "2021-06-28 00:00:00"
+display_date: "2021-06-28"
+description: "Short Intro to awk for Quick and Dirty Data Processing"
+slug: "short-intro-to-awk"
+tags: "awk soen data_processing tutorial"
 ---
 
-# Short Intro to awk for Quick and Dirty Data Processing
 
 ## What got me into awk?
 

@@ -1,4 +1,4 @@
-name: Deploy Elm Pages site
+name: Deploy Gleam site
 
 on:
   workflow_dispatch:
@@ -20,12 +20,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: erlef/setup-beam@v1
         with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run build
+          otp-version: "28.0"
+          rebar3-version: "3.24.0"
+      - uses: gleam-lang/setup-gleam@v1
+          
+      - run: gleam run -m site
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

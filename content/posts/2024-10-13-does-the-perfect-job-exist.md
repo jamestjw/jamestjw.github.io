@@ -1,8 +1,12 @@
 ---
-tags: soen
+title: "Does the perfect job exist?"
+date: "2024-10-13 00:00:00"
+display_date: "2024-10-13"
+description: "Does the perfect job exist?"
+slug: "does-the-perfect-job-exist"
+tags: "soen"
 ---
 
-# Does the perfect job exist?
 
 Now, I'm just wondering how common it is for people to feel this way. Before I
 start, I probably would have to provide you folks with more context. Job

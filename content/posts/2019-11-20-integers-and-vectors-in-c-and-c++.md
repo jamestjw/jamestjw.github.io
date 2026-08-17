@@ -1,8 +1,12 @@
 ---
-tags: comp_sci tutorial
+title: "Integers and Vectors in C/C++"
+date: "2019-11-20 00:00:00"
+display_date: "2019-11-20"
+description: "Integers and Vectors in C/C++"
+slug: "integers-and-vectors-in-c-and-c++"
+tags: "comp_sci tutorial"
 ---
 
-# Integers and Vectors in C/C++
 
 ## What's this all about?
 ![](/images/2019-11-20-integers_and_vectors_in_c_and_c++/binary.jpeg)
